@@ -3,7 +3,6 @@
 namespace Drupal\blog\Entity;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
@@ -11,28 +10,28 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup blog
  */
-interface BlogEntityInterface extends  ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
+interface BlogEntityInterface extends  ContentEntityInterface, EntityOwnerInterface {
 
   // Add get/set methods for your configuration properties here.
 
   /**
-   * Gets the Blog title.
+   * Gets the Blog name.
    *
    * @return string
-   *   Title of the Blog.
+   *   Name of the Blog.
    */
-  public function getTitle();
+  public function getName();
 
   /**
-   * Sets the Blog title.
+   * Sets the Blog name.
    *
-   * @param string $title
-   *   The Blog title.
+   * @param string $name
+   *   The Blog name.
    *
    * @return \Drupal\blog\Entity\BlogEntityInterface
    *   The called Blog entity.
    */
-  public function setTitle($title);
+  public function setName($name);
 
   /**
    * Gets the Blog body.
