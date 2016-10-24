@@ -1,0 +1,26 @@
+ version: '2'
+ services:
+   frontend:
+     build: ./frontend
+     ports:
+       - "80:80"
+     depends_on:
+       - api
+   api:
+     build: ./api
+     ports:
+       - "8080:8080"
+   drupal:
+     build: ./drupal
+     volumes:
+       - ./drupal/modules:/var/www/html/modules/custom
+     ports:
+       - "8081:80"
+     depends_on:
+       - mysql
+     links:
+       - mysql
+   mysql:
+     image: mysql
+     environment:
+       - MYSQL_ROOT_PASSWORD=drupal

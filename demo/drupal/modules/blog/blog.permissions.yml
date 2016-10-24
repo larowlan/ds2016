@@ -1,0 +1,22 @@
+add blog entities:
+  title: 'Create new Blog entities'
+
+administer blog entities:
+  title: 'Administer Blog entities'
+  description: 'Allow to access the administration form to configure Blog entities.'
+  restrict access: true
+
+delete blog entities:
+  title: 'Delete Blog entities'
+
+edit blog entities:
+  title: 'Edit Blog entities'
+
+access blog overview:
+  title: 'Access the Blog overview page'
+
+view published blog entities:
+  title: 'View published Blog entities'
+
+view unpublished blog entities:
+  title: 'View unpublished Blog entities'

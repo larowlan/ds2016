@@ -1,0 +1,22 @@
+# Blog routing definition
+blog.settings_tab:
+  route_name: blog.settings
+  title: 'Settings'
+  base_route: blog.settings
+
+entity.blog.canonical:
+  route_name: entity.blog.canonical
+  base_route: entity.blog.canonical
+  title: 'View'
+
+entity.blog.edit_form:
+  route_name: entity.blog.edit_form
+  base_route: entity.blog.canonical
+  title: 'Edit'
+
+entity.blog.delete_form:
+  route_name:  entity.blog.delete_form
+  base_route:  entity.blog.canonical
+  title: Delete
+  weight: 10
+

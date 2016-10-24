@@ -1,0 +1,22 @@
+{#
+/**
+ * @file blog.html.twig
+ * Default theme implementation to present Blog data.
+ *
+ * This template is used when viewing Blog pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_blog()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass('blog') }}>
+  {% if content %}
+    {{- content -}}
+  {% endif %}
+</div>
