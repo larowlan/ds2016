@@ -4,11 +4,5 @@ entity.blog.collection:
   title: 'Blog list'
   route_name: entity.blog.collection
   description: 'List Blog entities'
-  parent: system.admin_structure
+  parent: system.admin_content
   weight: 100
-
-blog.admin.structure.settings:
-  title: Blog settings
-  description: 'Configure Blog entities'
-  route_name: blog.settings
-  parent: system.admin_structure

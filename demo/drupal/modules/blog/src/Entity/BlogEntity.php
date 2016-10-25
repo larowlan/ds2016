@@ -41,7 +41,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *     "label" = "title",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
- *     "langcode" = "langcode",
  *     "status" = "status",
  *   },
  *   links = {
@@ -51,7 +50,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  *     "delete-form" = "/admin/content/blog/{blog}/delete",
  *     "collection" = "/admin/content/blog",
  *   },
- *   field_ui_base_route = "blog.settings"
+ *   field_ui_base_route = "entity.blog.collection"
  * )
  */
 class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
@@ -132,8 +131,7 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
    * {@inheritdoc}
    */
   public static function create(array $values = array()) {
-    print_r($values);
-    
+
     $entity_manager = \Drupal::entityManager();
     return $entity_manager->getStorage($entity_manager->getEntityTypeFromClass(get_called_class()))->create($values);
   }
@@ -158,7 +156,7 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
       ))
       ->setDefaultValue('')
       ->setDisplayOptions('view', array(
-        'label' => 'above',
+        'label' => 'hidden',
         'type' => 'string',
         'weight' => -4,
       ))
@@ -178,7 +176,7 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
       ))
       ->setDefaultValue('')
       ->setDisplayOptions('view', array(
-        'label' => 'above',
+        'label' => 'hidden',
         'type' => 'string',
         'weight' => -4,
       ))

@@ -1,13 +1,12 @@
-# Blog routing definition
-blog.settings_tab:
-  route_name: blog.settings
-  title: 'Settings'
-  base_route: blog.settings
-
 entity.blog.canonical:
   route_name: entity.blog.canonical
   base_route: entity.blog.canonical
   title: 'View'
+
+entity.blog.collection:
+  route_name: entity.blog.collection
+  base_route: system.admin_content
+  title: 'Blog'
 
 entity.blog.edit_form:
   route_name: entity.blog.edit_form

@@ -2,6 +2,7 @@
 
 namespace Drupal\blog\Entity\BlogStore;
 
+use Drupal\Core\Language\LanguageInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Drupal\Core\KeyValueStore\StorageBase;
@@ -71,7 +72,7 @@ class BlogContentEntityStorage extends StorageBase {
         $values[$key] = $result[$key];
       }
     }
-    
+
     /*try {
       $result = $this->connection->query('SELECT name, value FROM {' . $this->connection->escapeTable($this->table) . '} WHERE name IN ( :keys[] ) AND collection = :collection', array(':keys[]' => $keys, ':collection' => $this->collection))->fetchAllAssoc('name');
       foreach ($keys as $key) {
@@ -99,6 +100,12 @@ class BlogContentEntityStorage extends StorageBase {
     try {
       $response = $this->client->send($request);
       $blogs = json_decode($response->getBody(), TRUE);
+      foreach ($blogs as $id => $blog) {
+        foreach ($blog as $field => $value) {
+          $blogs[$id][$field] = [LanguageInterface::LANGCODE_DEFAULT => $value];
+        }
+        $blogs[$id]['id'] = [LanguageInterface::LANGCODE_DEFAULT => $id];
+      }
     }
     catch (RequestException $e) {
       // @todo: Perhaps if the database is never going to be available,
@@ -113,6 +120,34 @@ class BlogContentEntityStorage extends StorageBase {
    * {@inheritdoc}
    */
   public function set($key, $value) {
+    /**
+     * array (
+     * 'id' =>
+     * array (
+     * 0 =>
+     * array (
+     * 'value' => '7JsMU5pwDrokKCtRW8kc',
+     * ),
+     * ),
+     * 'uuid' =>
+     * array (
+     * ),
+     * 'title' =>
+     * array (
+     * 0 =>
+     * array (
+     * 'value' => 'Test Blog 2',
+     * ),
+     * ),
+     * 'body' =>
+     * array (
+     * 0 =>
+     * array (
+     * 'value' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+     * ),
+     * ),
+     * )
+     */
     /*$this->connection->merge($this->table)
       ->keys(array(
         'name' => $key,
