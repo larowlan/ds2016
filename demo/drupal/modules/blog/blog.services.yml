@@ -1,0 +1,7 @@
+parameters:
+  factory.keyvalue:
+    entity_storage__blog: blog.api
+services:
+  blog.api:
+    class: Drupal\blog\Entity\BlogStore\BlogEntityKeyValueFactory
+    arguments: ['@http_client']

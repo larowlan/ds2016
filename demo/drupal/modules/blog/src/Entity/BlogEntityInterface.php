@@ -10,7 +10,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup blog
  */
-interface BlogEntityInterface extends  ContentEntityInterface, EntityOwnerInterface {
+interface BlogEntityInterface extends ContentEntityInterface, EntityOwnerInterface {
 
   // Add get/set methods for your configuration properties here.
 

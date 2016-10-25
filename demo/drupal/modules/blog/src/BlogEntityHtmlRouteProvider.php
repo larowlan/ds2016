@@ -19,6 +19,12 @@ class BlogEntityHtmlRouteProvider extends AdminHtmlRouteProvider {
    */
   public function getRoutes(EntityTypeInterface $entity_type) {
     $collection = parent::getRoutes($entity_type);
+    
+    foreach ($collection as $route) {
+      $options = $route->getRequirements();
+      unset($options['id']);
+      $route->setRequirements($options);
+    }
 
     $entity_type_id = $entity_type->id();
 

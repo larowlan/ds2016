@@ -8,6 +8,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Defines the Blog entity.
@@ -20,7 +21,6 @@ use Drupal\user\UserInterface;
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\blog\BlogEntityListBuilder",
- *     "views_data" = "Drupal\blog\Entity\BlogEntityViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\blog\Form\BlogEntityForm",
@@ -38,7 +38,7 @@ use Drupal\user\UserInterface;
  *   admin_permission = "administer blog entities",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "name",
+ *     "label" = "title",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
@@ -60,14 +60,14 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
    * {@inheritdoc}
    */
   public function getName() {
-    return $this->get('name')->value;
+    return $this->get('title')->value;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setName($name) {
-    $this->set('name', $name);
+    $this->set('title', $name);
     return $this;
   }
 
@@ -128,13 +128,28 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
     return $this;
   }
 
+    /**
+   * {@inheritdoc}
+   */
+  public static function create(array $values = array()) {
+    print_r($values);
+    
+    $entity_manager = \Drupal::entityManager();
+    return $entity_manager->getStorage($entity_manager->getEntityTypeFromClass(get_called_class()))->create($values);
+  }
+
   /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['name'] = BaseFieldDefinition::create('string')
+    $fields['id'] = BaseFieldDefinition::create('string')
+        ->setLabel(new TranslatableMarkup('ID'))
+        ->setReadOnly(TRUE)
+        ->setSetting('unsigned', TRUE);
+
+    $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Title'))
       ->setDescription(t('The title of the Blog entity.'))
       ->setSettings(array(
@@ -154,7 +169,7 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['body'] = BaseFieldDefinition::create('string')
+    $fields['body'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Body'))
       ->setDescription(t('The content of the Blog entity.'))
       ->setSettings(array(
@@ -168,7 +183,7 @@ class BlogEntity extends ContentEntityBase implements BlogEntityInterface {
         'weight' => -4,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'string_textfield',
+        'type' => 'string_textarea',
         'weight' => -4,
       ))
       ->setDisplayConfigurable('form', TRUE)

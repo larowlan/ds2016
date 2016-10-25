@@ -22,3 +22,14 @@ function blog_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function blog_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['blog'])) {
+    $entity_types['blog']->setStorageClass('Drupal\Core\Entity\KeyValueStore\KeyValueContentEntityStorage');
+    $entity_keys = $entity_types['blog']->getKeys();
+    $entity_types['blog']->set('entity_keys', $entity_keys + array('uuid' => 'uuid'));
+  }
+}
